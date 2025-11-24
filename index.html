@@ -1,0 +1,634 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Care | The EChanneling Project</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --primary: #1a73e8;
+            --primary-dark: #0d47a1;
+            --secondary: #4caf50;
+            --accent: #00bcd4;
+            --light: #f8f9fa;
+            --dark: #212529;
+            --success: #28a745;
+            --danger: #dc3545;
+            --warning: #ff9800;
+            --gray: #6c757d;
+            --light-gray: #e9ecef;
+            --hospital-blue: #e3f2fd;
+            --card-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            --sidebar-width: 280px;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            background: linear-gradient(135deg, #e3f2fd 0%, #f8f9fa 100%);
+            min-height: 100vh;
+            display: flex;
+            background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="200" height="200" viewBox="0 0 200 200"><rect width="200" height="200" fill="%23e3f2fd" opacity="0.1"/><path d="M20,20 L180,20 L180,180 L20,180 Z" fill="none" stroke="%234caf50" stroke-width="2" opacity="0.1"/><circle cx="100" cy="100" r="30" fill="none" stroke="%2300bcd4" stroke-width="2" opacity="0.1"/></svg>');
+        }
+
+        .full-height {
+            width: 100%;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+
+        /* Header Styles */
+        header {
+            background: white;
+            box-shadow: 0 2px 15px rgba(0, 0, 0, 0.1);
+            padding: 15px 5%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            z-index: 100;
+        }
+
+        .logo-container {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .logo-icon {
+            color: var(--primary);
+            font-size: 2.5rem;
+        }
+
+        .edoc-logo {
+            font-size: 2rem;
+            font-weight: 700;
+            color: var(--primary-dark);
+        }
+
+        .edoc-logo-sub {
+            font-size: 1rem;
+            color: var(--gray);
+            font-weight: 500;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 25px;
+        }
+
+        .nav-item {
+            font-size: 1.1rem;
+            font-weight: 600;
+            color: var(--dark);
+            text-decoration: none;
+            padding: 8px 15px;
+            border-radius: 8px;
+            transition: all 0.3s ease;
+        }
+
+        .nav-item:hover {
+            background: rgba(26, 115, 232, 0.1);
+            color: var(--primary);
+        }
+
+        .login-btn {
+            background: var(--primary);
+            color: white !important;
+            padding: 10px 20px !important;
+        }
+
+        .login-btn:hover {
+            background: var(--primary-dark) !important;
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(26, 115, 232, 0.3);
+        }
+
+        /* Hero Section */
+        .hero {
+            background-image: url(./img/bg01.jpg);
+            background-repeat: no-repeat;
+            background-size: 100% 100%;
+            /* border: 2px solid red; */
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            padding: 50px 5%;
+            text-align: center;
+            animation: transitionIn-Y-bottom 0.8s;
+            
+        }
+
+        .heading-text {
+            font-size: 3.5rem;
+            font-weight: 800;
+            color: var(--primary-dark);
+            margin-bottom: 20px;
+            line-height: 1.2;
+        }
+
+        .sub-text2 {
+            margin-top: auto;
+            font-size: 1.4rem;
+            color: var(--gray);
+            max-width: 800px;
+            margin-bottom: 40px;
+            line-height: 1.6;
+        }
+
+        .btn-primary {
+            background: var(--primary);
+            color: white;
+            border: none;
+            border-radius: 12px;
+            padding: 18px 40px;
+            font-size: 1.2rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: var(--card-shadow);
+        }
+
+        .btn-primary:hover {
+            background: var(--primary-dark);
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(26, 115, 232, 0.4);
+        }
+
+        /* Features Section */
+        .features {
+            padding: 80px 5%;
+            background: white;
+        }
+
+        .section-title {
+            text-align: center;
+            font-size: 2.5rem;
+            color: var(--primary-dark);
+            margin-bottom: 20px;
+        }
+
+        .section-subtitle {
+            text-align: center;
+            font-size: 1.2rem;
+            color: var(--gray);
+            max-width: 700px;
+            margin: 0 auto 60px;
+        }
+
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .feature-card {
+            background: var(--light);
+            border-radius: 20px;
+            padding: 40px 30px;
+            text-align: center;
+            box-shadow: var(--card-shadow);
+            transition: transform 0.3s ease;
+        }
+
+        .feature-card:hover {
+            transform: translateY(-10px);
+        }
+
+        .feature-icon {
+            width: 80px;
+            height: 80px;
+            background: var(--hospital-blue);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 25px;
+            color: var(--primary);
+            font-size: 2rem;
+        }
+
+        .feature-title {
+            font-size: 1.5rem;
+            color: var(--primary-dark);
+            margin-bottom: 15px;
+        }
+
+        .feature-desc {
+            font-size: 1.1rem;
+            color: var(--gray);
+            line-height: 1.6;
+        }
+
+        /* How It Works */
+        .process {
+            padding: 80px 5%;
+            background: var(--hospital-blue);
+        }
+
+        .steps {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 40px;
+            max-width: 1200px;
+            margin: 60px auto 0;
+        }
+
+        .step {
+            flex: 1;
+            min-width: 250px;
+            max-width: 300px;
+            text-align: center;
+            position: relative;
+        }
+
+        .step-number {
+            width: 50px;
+            height: 50px;
+            background: var(--primary);
+            color: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            font-weight: 700;
+            margin: 0 auto 25px;
+        }
+
+        .step:not(:last-child):after {
+            content: "";
+            position: absolute;
+            top: 25px;
+            right: -30px;
+            width: 60px;
+            height: 2px;
+            background: var(--primary);
+        }
+
+        /* Testimonials */
+        .testimonials {
+            padding: 80px 5%;
+            background: white;
+        }
+
+        .testimonial-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 30px;
+            max-width: 1200px;
+            margin: 60px auto 0;
+        }
+
+        .testimonial-card {
+            background: var(--light);
+            border-radius: 20px;
+            padding: 30px;
+            box-shadow: var(--card-shadow);
+        }
+
+        .testimonial-text {
+            font-size: 1.1rem;
+            color: var(--dark);
+            line-height: 1.8;
+            margin-bottom: 25px;
+            position: relative;
+        }
+
+        .testimonial-text:before {
+            content: "\"";
+            font-size: 4rem;
+            color: var(--light-gray);
+            position: absolute;
+            top: -20px;
+            left: -10px;
+            font-family: Georgia, serif;
+        }
+
+        .testimonial-author {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .author-avatar {
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            background: var(--accent);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 1.5rem;
+            font-weight: bold;
+        }
+
+        .author-info h4 {
+            font-size: 1.2rem;
+            color: var(--primary-dark);
+            margin-bottom: 5px;
+        }
+
+        .author-info p {
+            color: var(--gray);
+        }
+
+        /* Footer */
+        footer {
+            background: var(--primary-dark);
+            color: white;
+            padding: 40px 5%;
+            text-align: center;
+        }
+
+        .footer-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .footer-logo {
+            font-size: 2rem;
+            font-weight: 700;
+            margin-bottom: 20px;
+        }
+
+        .footer-links {
+            display: flex;
+            gap: 30px;
+            margin-bottom: 30px;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+
+        .footer-link {
+            color: rgba(255, 255, 255, 0.8);
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+
+        .footer-link:hover {
+            color: white;
+        }
+
+        .copyright {
+            color: rgba(255, 255, 255, 0.6);
+            margin-top: 20px;
+            font-size: 0.9rem;
+        }
+
+        /* Animations */
+        @keyframes transitionIn-Y-bottom {
+            from {
+                opacity: 0;
+                transform: translateY(50px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+            }
+            to {
+                opacity: 1;
+            }
+        }
+
+        /* Responsive Design */
+        @media (max-width: 992px) {
+            .heading-text {
+                font-size: 2.8rem;
+            }
+            
+            .sub-text2 {
+                font-size: 1.2rem;
+            }
+            
+            .steps {
+                gap: 60px;
+            }
+            
+            .step:not(:last-child):after {
+                display: none;
+            }
+        }
+
+        @media (max-width: 768px) {
+            header {
+                flex-direction: column;
+                gap: 20px;
+                padding: 15px;
+            }
+            
+            .heading-text {
+                font-size: 2.3rem;
+            }
+            
+            .sub-text2 {
+                font-size: 1.1rem;
+                padding: 0 20px;
+            }
+            
+            .nav-links {
+                width: 100%;
+                justify-content: center;
+            }
+            
+            .feature-card {
+                padding: 30px 20px;
+            }
+        }
+
+        @media (max-width: 576px) {
+            .heading-text {
+                font-size: 2rem;
+            }
+            
+            .btn-primary {
+                padding: 15px 30px;
+                font-size: 1.1rem;
+            }
+            
+            .section-title {
+                font-size: 2rem;
+            }
+            
+            .nav-item {
+                font-size: 1rem;
+                padding: 6px 12px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="full-height">
+        <!-- Header -->
+        <header>
+            <div class="logo-container">
+                <i class="fas fa-heartbeat logo-icon"></i>
+                <div>
+                    <span class="edoc-logo">Care.</span>
+                    <span class="edoc-logo-sub">| THE ECHANNELING PROJECT</span>
+                </div>
+            </div>
+            <div class="nav-links">
+                <a href="login.php" class="nav-item">LOGIN</a>
+                <a href="signup.php" class="nav-item login-btn">REGISTER</a>
+            </div>
+        </header>
+
+        <!-- Hero Section -->
+        <section class="hero">
+            <h1 class="heading-text">Avoid Hassles & Delays.</h1>
+            <p class="sub-text2">
+                How is health today, Sounds like not good!<br>
+                Don't worry. Find your doctor online Book as you wish with Care.<br>
+                We offer you a free doctor channeling service, Make your appointment now.
+            </p>
+            <a href="login.php">
+                <button class="btn-primary">Make Appointment</button>
+            </a>
+        </section>
+
+        <!-- Features Section -->
+        <section class="features">
+            <h2 class="section-title">Why Choose Care?</h2>
+            <p class="section-subtitle">Experience healthcare reimagined with our innovative platform</p>
+            
+            <div class="features-grid">
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-clock"></i>
+                    </div>
+                    <h3 class="feature-title">Save Time</h3>
+                    <p class="feature-desc">Book appointments in seconds, avoid long waiting times at clinics and hospitals.</p>
+                </div>
+                
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-user-md"></i>
+                    </div>
+                    <h3 class="feature-title">Expert Doctors</h3>
+                    <p class="feature-desc">Access a network of qualified and experienced healthcare professionals.</p>
+                </div>
+                
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-mobile-alt"></i>
+                    </div>
+                    <h3 class="feature-title">Easy Access</h3>
+                    <p class="feature-desc">Manage your healthcare from anywhere using our mobile-friendly platform.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- How It Works -->
+        <section class="process">
+            <h2 class="section-title">How care Works</h2>
+            <p class="section-subtitle">Simple steps to book your next appointment</p>
+            
+            <div class="steps">
+                <div class="step">
+                    <div class="step-number">1</div>
+                    <h3 class="feature-title">Create Account</h3>
+                    <p class="feature-desc">Sign up in less than a minute with your basic information</p>
+                </div>
+                
+                <div class="step">
+                    <div class="step-number">2</div>
+                    <h3 class="feature-title">Find a Doctor</h3>
+                    <p class="feature-desc">Search by specialty, location, or availability</p>
+                </div>
+                
+                <div class="step">
+                    <div class="step-number">3</div>
+                    <h3 class="feature-title">Book Appointment</h3>
+                    <p class="feature-desc">Select your preferred date and time slot</p>
+                </div>
+                
+                <div class="step">
+                    <div class="step-number">4</div>
+                    <h3 class="feature-title">Visit Doctor</h3>
+                    <p class="feature-desc">Receive reminders and visit your doctor on time</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Testimonials -->
+        <section class="testimonials">
+            <h2 class="section-title">What Our Patients Say</h2>
+            <p class="section-subtitle">Real experiences from our satisfied users</p>
+            
+            <div class="testimonial-grid">
+                <div class="testimonial-card">
+                    <p class="testimonial-text">Care has transformed how I manage my family's healthcare. Booking appointments is now a breeze and we no longer waste hours in waiting rooms.</p>
+                    <div class="testimonial-author">
+                        <div class="author-avatar">S</div>
+                        <div class="author-info">
+                            <h4>Sarah Johnson</h4>
+                            <p>Regular Patient for 2 years</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="testimonial-card">
+                    <p class="testimonial-text">As a senior citizen, I find Care incredibly easy to use. The reminders are helpful and I can easily reschedule if needed.</p>
+                    <div class="testimonial-author">
+                        <div class="author-avatar">R</div>
+                        <div class="author-info">
+                            <h4>Robert Davis</h4>
+                            <p>Patient since 2020</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="testimonial-card">
+                    <p class="testimonial-text">Finding the right specialist was always challenging until I discovered Care. Now I can compare doctors and book instantly!</p>
+                    <div class="testimonial-author">
+                        <div class="author-avatar">M</div>
+                        <div class="author-info">
+                            <h4>Maria Garcia</h4>
+                            <p>New Patient</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Footer -->
+        <footer>
+            <div class="footer-content">
+                <div class="footer-logo">Care.</div>
+                <div class="footer-links">
+                    <a href="#" class="footer-link">About Us</a>
+                    <a href="#" class="footer-link">Services</a>
+                    <a href="#" class="footer-link">Doctors</a>
+                    <a href="#" class="footer-link">Contact</a>
+                    <a href="#" class="footer-link">Privacy Policy</a>
+                    <a href="#" class="footer-link">Terms of Service</a>
+                </div>
+                <p class="copyright">© 2025 Care - E Project. All rights reserved.</p>
+            </div>
+        </footer>
+    </div>
+</body>
+</html>
